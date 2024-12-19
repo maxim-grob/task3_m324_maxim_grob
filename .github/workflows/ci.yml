@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  code-quality-check:
+  code-formatter-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -23,8 +23,36 @@ jobs:
       - name: Run formatter
         run: npm run format-check
 
+  code-linter-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+
+      - name: Install production dependencies
+        run: npm ci
+
       - name: Run linter
         run: npm run lint
+
+  code-test-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+
+      - name: Install production dependencies
+        run: npm ci
 
       - name: Run tests
         run: npm test
