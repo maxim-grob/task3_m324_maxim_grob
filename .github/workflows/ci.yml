@@ -20,5 +20,11 @@ jobs:
       - name: Install production dependencies
         run: npm ci
 
+      - name: Run formatter
+        run: npm run format-check
+
       - name: Run linter
         run: npm run lint
+
+      - name: Run tests
+        run: npm test
